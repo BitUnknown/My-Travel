@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humpty Dumpty Travel</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+        }
+        .banner-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .form-input {
+                margin-top: 0.25rem;
+                display: block;
+                width: 100%;
+                border-radius: 0.375rem;
+                border: 1px solid #d1d5db;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                transition: border-color 0.2s, box-shadow 0.2s;
+            }
+            .form-input:focus {
+                border-color: #3b82f6;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-8" >
+                
+                <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\logo.png" alt="logo" class="h-12">
+                </button>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#places" class="nav-link text-gray-600 hover:text-blue-500">Places</a>
+                    <a href="#options" class="nav-link text-gray-600 hover:text-blue-500">Options</a>
+                    <a href="#offers" class="nav-link text-gray-600 hover:text-blue-500">Offers</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="search" placeholder="Search destinations..." class="pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="bi bi-search absolute left-3 top-2.5 text-gray-400"></i>
+                </div>
+                <a href="tel:+1234567890" class="text-gray-600 hover:text-blue-500"><i class="bi bi-telephone"></i> +91 9847394893</a>
+                <button onclick="openContactForm()" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600">Contact Us</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        <!-- Hero Banner -->
+        <background-image>
+        <div class="relative h-[70vh] bg-cover bg-center">
+            <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 2\Spiti - Profile.jpeg"  class="absolute inset-0 w-full h-full object-cover opacity-50">
+        </background-image>
+            <div class="absolute inset-0 banner-overlay"></div>
+            <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white relative z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Spiti Valley Tour Packages</h1>
+                <p class="text-xl md:text-2xl mb-8">Experience the breathtaking beauty of Spiti Valley</p>
+                <div class="flex flex-col md:flex-row gap-4">
+                    
+
+<button 
+  class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all"
+  onclick="document.getElementById('options').scrollIntoView({ behavior: 'smooth' });">
+  Explore Packages
+</button>
+
+                    <button class="bg-transparent border-2 border-white hover:bg-white hover:text-blue-800 text-white px-8 py-3 rounded-full font-medium transition-all">View Gallery</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Booking Form -->
+        <div class="bg-white shadow-lg rounded-lg -mt-10 mx-4 md:mx-auto max-w-4xl relative z-20 p-6">
+            <h3 class="text-2xl font-semibold text-center mb-6">Book Your Spiti Valley Adventure</h3>
+            <form class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+                    <select class="form-input bg-gray-50 border border-gray-300 rounded-md p-2 w-full">
+                        <option selected>Spiti Village</option>
+                        <option>Monastery</option>
+                        <option>Trecking</option>
+                        <option>Landscape</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Check-in Date</label>
+                    <input type="date" class="form-input bg-gray-50 border border-gray-300 rounded-md p-2 w-full">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+                    <select class="form-input bg-gray-50 border border-gray-300 rounded-md p-2 w-full">
+                        <option>2D-3N</option>
+                        <option>4D-5N</option>
+                        <option>6+ Days</option>
+                    </select>
+                </div>
+                <div class="md:col-span-3">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-md w-full transition-all">Check Availability</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- About Spiti Valley -->
+        <section class="container mx-auto px-4 py-16">
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">Discover Spiti Valley</h2>
+                    <p class="text-gray-600 mb-4">Nestled in the northeastern part of Himachal Pradesh, Spiti Valley is a cold desert mountain valley located high in the Himalayan mountains. The name "Spiti" means "The Middle Land" - the land between Tibet and India.</p>
+                    <p class="text-gray-600 mb-4">With an average altitude of around 12,500 feet above sea level, Spiti Valley offers breathtaking landscapes, ancient monasteries, and a unique cultural experience that will leave you mesmerized.</p>
+                    <p class="text-gray-600 mb-4">From the stunning vistas of Chandratal Lake to the serene beauty of Key Monastery, Spiti Valley is a paradise for nature lovers and adventure enthusiasts alike.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">High Altitude</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Buddhist Culture</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Ancient Monasteries</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Stargazing</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Adventure</span>
+                    </div>
+                    
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\KyeMonastery.jpg" alt="Spiti Monastery" class="rounded-lg h-48 object-cover w-full">
+                    <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\spiti landscape.webp" alt="Spiti Landscape" class="rounded-lg h-48 object-cover w-full">
+                    <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\mountains.jpg" alt="Spiti Mountain" class="rounded-lg h-48 object-cover w-full">
+                    <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\village.webp" alt="Spiti Village" class="rounded-lg h-48 object-cover w-full">
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Packages -->
+        <section class="bg-gray-100 py-16" id="places">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-2">Our Popular Spiti Valley Packages</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Choose from our carefully curated packages to experience the best of Spiti Valley. Each package offers a unique blend of adventure, culture, and natural beauty.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Package 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl package-card transition-all">
+                        <div class="relative">
+                            <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\Spiti-Circut-Map-min.jpg" alt="Classic Spiti Circuit" class="w-full h-50 object-cover">
+                            <div class="absolute top-4 right-4 bg-blue-500 text-white text-sm font-bold px-3 py-1 rounded-full">Bestseller</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Classic Spiti Circuit</h3>
+                            
+                            <div class="flex items-center text-gray-600 text-sm mb-4">
+                                <i class="bi bi-calendar3 mr-2"></i> 6 Days / 5 Nights
+                            </div>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Key Monasteries & Kibber Village</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Chandratal Lake expedition</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Homestay experience with local families</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-gray-500 line-through">₹25,999</span>
+                                    <div class="text-2xl font-bold text-blue-600">₹19,999</div>
+                                    <div class="text-xs text-gray-500">per person</div>
+                                </div>
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl package-card transition-all">
+                        <div class="relative">
+                            <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\trek.jpg" alt="Adventure Spiti Trek" class="w-full h-80 object-cover">
+                            <div class="absolute top-4 right-4 bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full">20% Off</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Adventure Spiti Trek</h3>
+                            
+                            <div class="flex items-center text-gray-600 text-sm mb-4">
+                                <i class="bi bi-calendar3 mr-2"></i> 8 Days / 7 Nights
+                            </div>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Pin Valley Trek & National Park</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Dhankar Monastery & Tabo Cave</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Camping under starlit sky</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Group discounts</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-gray-500 line-through">₹32,999</span>
+                                    <div class="text-2xl font-bold text-blue-600">₹26,499</div>
+                                    <div class="text-xs text-gray-500">per person</div>
+                                </div>
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Package 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl package-card transition-all">
+                        <div class="relative">
+                            <img src="D:\Projects\conveyor belt\elevtive bootstrap\img 3\stay.jpeg" alt="Luxury Spiti Retreat" class="w-full h-80 object-cover">
+                            <div class="absolute top-4 right-4 bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full">Premium</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Luxury Spiti Retreat</h3>
+                            
+                            <div class="flex items-center text-gray-600 text-sm mb-4">
+                                <i class="bi bi-calendar3 mr-2"></i> 10 Days / 9 Nights
+                            </div>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Premium glamping experience</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Private monastery tours & meditation</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 mr-2"></i>
+                                    <span class="text-sm">Gourmet local cuisine & experiences</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-gray-500 line-through">₹49,999</span>
+                                    <div class="text-2xl font-bold text-blue-600">₹42,999</div>
+                                    <div class="text-xs text-gray-500">per person</div>
+                                </div>
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-10">
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Travel Options -->
+        <section class="container mx-auto px-4 py-16" id="options">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">Travel Options</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Choose the travel style that suits you best. We offer a range of options to make your Spiti Valley experience truly memorable.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Luxury Package -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all">
+                    <div class="mb-4 text-blue-500 text-4xl">
+                        <i class="bi bi-diamond"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Luxury Package</h3>
+                    <p class="text-gray-600 mb-4">Experience Spiti Valley in the lap of luxury with premium accommodations, private transportation, and exclusive experiences.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">5-star accommodations where available</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Private SUV transportation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Personal guide and concierge</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Exclusive cultural experiences</span>
+                        </li>
+                    </ul>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full">Learn More</button>
+                </div>
+
+                <!-- Adventure Package -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all">
+                    <div class="mb-4 text-green-500 text-4xl">
+                        <i class="bi bi-compass"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Adventure Package</h3>
+                    <p class="text-gray-600 mb-4">For thrill-seekers looking to explore Spiti's rugged terrain through treks, camping, and outdoor activities.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Guided treks to remote villages</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Camping equipment provided</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Mountain biking options</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Stargazing and night photography</span>
+                        </li>
+                    </ul>
+                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full">Learn More</button>
+                </div>
+
+                <!-- Budget Package -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all">
+                    <div class="mb-4 text-amber-500 text-4xl">
+                        <i class="bi bi-piggy-bank"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Budget Package</h3>
+                    <p class="text-gray-600 mb-4">Affordable options that don't compromise on essential experiences, perfect for backpackers and budget travelers.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Comfortable guesthouses & hostels</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Shared transportation options</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">Self-guided tour possibilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="bi bi-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span class="text-sm">All major attractions included</span>
+                        </li>
+                    </ul>
+                    <button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg w-full">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Offers -->
+        <section class="bg-gray-100 py-16" id="offers">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-2">Latest Offers</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Take advantage of our seasonal deals and special promotions for your Spiti Valley adventure.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Offer 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">Early Bird Special</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Ends Soon</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Book your Spiti Valley tour 3 months in advance and get 20% off on any package.</p>
+                        <div class="mb-4">
+                            <span class="text-sm font-medium">Use code:</span>
+                            <span class="bg-gray-100 px-3 py-1 rounded ml-2 font-mono text-blue-600">EARLYBIRD20</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="bi bi-calendar-x mr-2"></i>
+                            <span>Valid until: August 31, 2025</span>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full">View Details</button>
+                    </div>
+
+                    <!-- Offer 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">Family Package</h3>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Popular</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Kids under 12 stay free when traveling with two paying adults. Limited to select destinations.</p>
+                        <div class="mb-4">
+                            <span class="text-sm font-medium">Use code:</span>
+                            <span class="bg-gray-100 px-3 py-1 rounded ml-2 font-mono text-green-600">FAMILYFUN</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="bi bi-calendar-x mr-2"></i>
+                            <span>Valid until: September 30, 2025</span>
+                        </div>
+                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full">View Details</button>
+                    </div>
+
+                    <!-- Offer 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">Last Minute Deals</h3>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">30% Off</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Grab amazing discounts on last-minute bookings for departures within the next 2 weeks!</p>
+                        <div class="mb-4">
+                            <span class="text-sm font-medium">Use code:</span>
+                            <span class="bg-gray-100 px-3 py-1 rounded ml-2 font-mono text-yellow-600">LASTCALL30</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <i class="bi bi-calendar-check mr-2"></i>
+                            <span>For immediate departures</span>
+                        </div>
+                        <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg w-full">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+    <!-- Contact Form Modal -->
+    <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg w-full max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Contact Us</h2>
+                <button onclick="closeContactForm()" class="text-gray-500 hover:text-gray-700">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Phone</label>
+                    <input type="tel" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Interested in</label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option>Classic Spiti Circuit</option>
+                        <option>Adventure Spiti Trek</option>
+                        <option>Luxury Spiti Retreat</option>
+                        <option>Custom Package</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Message</label>
+                    <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const carousel = document.querySelector('.carousel');
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 5000);
+
+        // Contact Form Modal
+        function openContactForm() {
+            document.getElementById('contactModal').classList.remove('hidden');
+            document.getElementById('contactModal').classList.add('flex');
+        }
+
+        function closeContactForm() {
+            document.getElementById('contactModal').classList.add('hidden');
+            document.getElementById('contactModal').classList.remove('flex');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('contactModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeContactForm();
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Humpty Dumpty Travel</h3>
+                    <p class="text-gray-300 mb-4">Your trusted partner for unforgettable Spiti Valley adventures since 2010. We specialize in creating authentic travel experiences that connect you with the heart of Spiti.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-blue-400"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white hover:text-blue-400"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-blue-400"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-blue-400"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Tour Packages</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Gallery</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Popular Destinations</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Key Monastery</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Chandratal Lake</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Kaza</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Tabo</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Dhankar Monastery</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Pin Valley</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="bi bi-geo-alt text-blue-400 mr-3 mt-1"></i>
+                            <span>51,Humpty-Dumpty, Nagpur, Maharashtra, India - 440008</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="bi bi-telephone text-blue-400 mr-3"></i>
+                            <span>+91 9847394893 </span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="bi bi-envelope text-blue-400 mr-3"></i>
+                            <span>info@humptydumptytravel.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="bi bi-clock text-blue-400 mr-3"></i>
+                            <span>Mon-Sat: 9AM to 7PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2020 Humpty Dumpty Travel. All rights reserved.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                        <span class="text-gray-500">|</span>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms & Conditions</a>
+                        <span class="text-gray-500">|</span>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">FAQs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
+
+
+
+
